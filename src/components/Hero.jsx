@@ -1,5 +1,6 @@
 import { ArrowDown, Sparkles } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
+import CatBackground from './CatBackground'
 
 export default function Hero() {
   const { t, language } = useLanguage()
@@ -17,6 +18,9 @@ export default function Hero() {
         overflow: 'hidden',
       }}
     >
+      {/* Cat Background Animation */}
+      <CatBackground />
+
       {/* Background gradient */}
       <div
         style={{
@@ -28,6 +32,7 @@ export default function Hero() {
           height: '600px',
           background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
           pointerEvents: 'none',
+          zIndex: 1,
         }}
       />
 

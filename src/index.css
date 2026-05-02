@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-:root {
+:root,
+[data-theme="dark"] {
   --background: #0a0a0b;
   --foreground: #fafafa;
   --card: #141416;
@@ -11,6 +12,20 @@
   --accent-foreground: #fafafa;
   --border: #27272a;
   --ring: #3b82f6;
+  --radius: 1rem;
+}
+
+[data-theme="light"] {
+  --background: #fafafa;
+  --foreground: #0a0a0b;
+  --card: #ffffff;
+  --card-foreground: #0a0a0b;
+  --muted: #f0f0f2;
+  --muted-foreground: #6b6b74;
+  --accent: #2563eb;
+  --accent-foreground: #ffffff;
+  --border: #e4e4e7;
+  --ring: #2563eb;
   --radius: 1rem;
 }
 
