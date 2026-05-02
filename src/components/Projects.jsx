@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Folder } from 'lucide-react'
+import { ExternalLink, FolderGit2, Folder } from 'lucide-react'
 
 const projects = [
   {
@@ -136,7 +136,7 @@ export default function Projects() {
                     onMouseLeave={(e) => (e.target.style.color = 'var(--muted-foreground)')}
                     aria-label="View source code on GitHub"
                   >
-                    <Github size={20} />
+                    <FolderGit2 size={20} />
                   </a>
                 )}
                 {project.live && (
