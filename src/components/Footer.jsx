@@ -1,9 +1,9 @@
-import { Github, Linkedin, Twitter } from 'lucide-react'
+
 
 const socialLinks = [
-  { name: 'GitHub', icon: Github, href: 'https://github.com' },
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com' },
-  { name: 'Twitter', icon: Twitter, href: 'https://twitter.com' },
+  { name: 'GitHub', href: 'https://github.com' },
+  { name: 'LinkedIn', href: 'https://linkedin.com' },
+  { name: 'Twitter', href: 'https://twitter.com' },
 ]
 
 export default function Footer() {
@@ -63,7 +63,7 @@ export default function Footer() {
                 e.currentTarget.style.transform = 'translateY(0)'
               }}
             >
-              <link.icon size={18} />
+              <span style={{ fontSize: '0.75rem', fontWeight: 600 }}>{link.name.charAt(0)}</span>
             </a>
           ))}
         </div>
