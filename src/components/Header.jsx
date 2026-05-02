@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Globe } from 'lucide-react'
+import { Menu, X, Globe, Moon, Sun } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { language, toggleLanguage, t } = useLanguage()
+  const { theme, toggleTheme } = useTheme()
   const location = useLocation()
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export default function Header() {
         zIndex: 50,
         padding: '1rem 1.5rem',
         transition: 'all 0.3s ease',
-        backgroundColor: isScrolled ? 'rgba(10, 10, 11, 0.8)' : 'transparent',
+        backgroundColor: isScrolled ? (theme === 'dark' ? 'rgba(10, 10, 11, 0.8)' : 'rgba(250, 250, 250, 0.8)') : 'transparent',
         backdropFilter: isScrolled ? 'blur(12px)' : 'none',
         borderBottom: isScrolled ? '1px solid var(--border)' : '1px solid transparent',
       }}
@@ -139,6 +141,28 @@ export default function Header() {
             )
           ))}
           
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0.5rem',
+              backgroundColor: 'var(--muted)',
+              color: 'var(--foreground)',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = 'var(--border)')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = 'var(--muted)')}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
           {/* Language Switcher */}
           <button
             onClick={toggleLanguage}
@@ -166,6 +190,24 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="mobile-controls">
+          <button
+            onClick={toggleTheme}
+            style={{
+              display: 'none',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0.4rem',
+              backgroundColor: 'var(--muted)',
+              color: 'var(--foreground)',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+            }}
+            className="mobile-theme-btn"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
           <button
             onClick={toggleLanguage}
             style={{
@@ -211,7 +253,7 @@ export default function Header() {
             top: '100%',
             left: 0,
             right: 0,
-            backgroundColor: 'rgba(10, 10, 11, 0.98)',
+            backgroundColor: theme === 'dark' ? 'rgba(10, 10, 11, 0.98)' : 'rgba(250, 250, 250, 0.98)',
             backdropFilter: 'blur(12px)',
             borderBottom: '1px solid var(--border)',
             padding: '1rem 1.5rem',
@@ -265,6 +307,9 @@ export default function Header() {
             display: block !important;
           }
           .mobile-lang-btn {
+            display: flex !important;
+          }
+          .mobile-theme-btn {
             display: flex !important;
           }
         }

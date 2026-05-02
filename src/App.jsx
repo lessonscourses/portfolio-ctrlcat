@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './i18n/LanguageContext'
+import { ThemeProvider } from './context/ThemeContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
@@ -7,8 +8,9 @@ import ProjectPage from './pages/ProjectPage'
 
 function App() {
   return (
-    <LanguageProvider>
-      <Router>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Router>
         <Header />
         <main>
           <Routes>
@@ -18,7 +20,8 @@ function App() {
         </main>
         <Footer />
       </Router>
-    </LanguageProvider>
+      </LanguageProvider>
+    </ThemeProvider>
   )
 }
 
