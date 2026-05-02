@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
+import { Menu, X, Globe } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const { language, toggleLanguage, t } = useLanguage()
+  const location = useLocation()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,11 +17,25 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const isHomePage = location.pathname === '/'
+
   const navLinks = [
-    { name: 'Projects', href: '#projects' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: t('nav.home'), href: '/' },
+    { name: t('nav.projects'), href: isHomePage ? '#projects' : '/#projects' },
+    { name: t('nav.about'), href: isHomePage ? '#about' : '/#about' },
+    { name: t('nav.contact'), href: isHomePage ? '#contact' : '/#contact' },
   ]
+
+  const handleNavClick = (e, href) => {
+    if (href.startsWith('#')) {
+      e.preventDefault()
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+      setIsMobileMenuOpen(false)
+    }
+  }
 
   return (
     <header
@@ -43,8 +61,8 @@ export default function Header() {
           justifyContent: 'space-between',
         }}
       >
-        <a
-          href="#"
+        <Link
+          to="/"
           style={{
             fontSize: '1.25rem',
             fontWeight: 700,
@@ -52,25 +70,28 @@ export default function Header() {
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
+            textDecoration: 'none',
+            color: 'var(--foreground)',
           }}
         >
           <span
             style={{
-              width: '32px',
-              height: '32px',
+              width: '36px',
+              height: '36px',
               background: 'linear-gradient(135deg, var(--accent), #8b5cf6)',
-              borderRadius: '8px',
+              borderRadius: '10px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: '0.875rem',
-              fontWeight: 600,
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: '#fff',
             }}
           >
-            JD
+            C+C
           </span>
-          <span style={{ display: 'none' }}>Jane Doe</span>
-        </a>
+          <span style={{ fontSize: '1rem', fontWeight: 600 }}>Ctrl+Cat</span>
+        </Link>
 
         {/* Desktop Nav */}
         <div
@@ -82,56 +103,104 @@ export default function Header() {
           className="desktop-nav"
         >
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              style={{
-                fontSize: '0.875rem',
-                fontWeight: 500,
-                color: 'var(--muted-foreground)',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={(e) => (e.target.style.color = 'var(--foreground)')}
-              onMouseLeave={(e) => (e.target.style.color = 'var(--muted-foreground)')}
-            >
-              {link.name}
-            </a>
+            link.href.startsWith('#') ? (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  color: 'var(--muted-foreground)',
+                  transition: 'color 0.2s ease',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => (e.target.style.color = 'var(--foreground)')}
+                onMouseLeave={(e) => (e.target.style.color = 'var(--muted-foreground)')}
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                  color: 'var(--muted-foreground)',
+                  transition: 'color 0.2s ease',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => (e.target.style.color = 'var(--foreground)')}
+                onMouseLeave={(e) => (e.target.style.color = 'var(--muted-foreground)')}
+              >
+                {link.name}
+              </Link>
+            )
           ))}
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
+          
+          {/* Language Switcher */}
+          <button
+            onClick={toggleLanguage}
             style={{
-              padding: '0.5rem 1rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '0.5rem 0.75rem',
               fontSize: '0.875rem',
               fontWeight: 500,
-              backgroundColor: 'var(--accent)',
-              color: 'var(--accent-foreground)',
+              backgroundColor: 'var(--muted)',
+              color: 'var(--foreground)',
+              border: 'none',
               borderRadius: '8px',
-              transition: 'opacity 0.2s ease',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
             }}
-            onMouseEnter={(e) => (e.target.style.opacity = '0.9')}
-            onMouseLeave={(e) => (e.target.style.opacity = '1')}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = 'var(--border)')}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = 'var(--muted)')}
           >
-            GitHub
-          </a>
+            <Globe size={16} />
+            {language === 'en' ? 'RU' : 'EN'}
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          style={{
-            display: 'none',
-            padding: '0.5rem',
-            background: 'transparent',
-            border: 'none',
-            color: 'var(--foreground)',
-            cursor: 'pointer',
-          }}
-          className="mobile-menu-btn"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="mobile-controls">
+          <button
+            onClick={toggleLanguage}
+            style={{
+              display: 'none',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '0.4rem 0.6rem',
+              fontSize: '0.8rem',
+              fontWeight: 500,
+              backgroundColor: 'var(--muted)',
+              color: 'var(--foreground)',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+            }}
+            className="mobile-lang-btn"
+          >
+            <Globe size={14} />
+            {language === 'en' ? 'RU' : 'EN'}
+          </button>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            style={{
+              display: 'none',
+              padding: '0.5rem',
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--foreground)',
+              cursor: 'pointer',
+            }}
+            className="mobile-menu-btn"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}
@@ -150,20 +219,39 @@ export default function Header() {
           className="mobile-menu"
         >
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              style={{
-                display: 'block',
-                padding: '0.75rem 0',
-                fontSize: '1rem',
-                fontWeight: 500,
-                color: 'var(--muted-foreground)',
-              }}
-            >
-              {link.name}
-            </a>
+            link.href.startsWith('#') ? (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                style={{
+                  display: 'block',
+                  padding: '0.75rem 0',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  color: 'var(--muted-foreground)',
+                  textDecoration: 'none',
+                }}
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{
+                  display: 'block',
+                  padding: '0.75rem 0',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  color: 'var(--muted-foreground)',
+                  textDecoration: 'none',
+                }}
+              >
+                {link.name}
+              </Link>
+            )
           ))}
         </div>
       )}
@@ -175,6 +263,9 @@ export default function Header() {
           }
           .mobile-menu-btn {
             display: block !important;
+          }
+          .mobile-lang-btn {
+            display: flex !important;
           }
         }
       `}</style>

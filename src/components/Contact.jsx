@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Send, Mail, MapPin, Loader2 } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Contact() {
+  const { t, language } = useLanguage()
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -14,7 +16,7 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
     
-    // Simulate form submission
+    // Simulate form submission - replace with actual API call
     await new Promise((resolve) => setTimeout(resolve, 1500))
     
     setIsSubmitting(false)
@@ -62,7 +64,7 @@ export default function Contact() {
           }}
           className="font-mono"
         >
-          Get in Touch
+          {language === 'en' ? 'Get in Touch' : 'Контакты'}
         </span>
         <h2
           style={{
@@ -72,7 +74,7 @@ export default function Contact() {
             marginTop: '0.5rem',
           }}
         >
-          Let&apos;s Work Together
+          {t('contact.title')}
         </h2>
         <p
           style={{
@@ -82,8 +84,7 @@ export default function Contact() {
             margin: '1rem auto 0',
           }}
         >
-          Have a project in mind? I&apos;d love to hear about it. Send me a message 
-          and I&apos;ll get back to you as soon as possible.
+          {t('contact.subtitle')}
         </p>
       </div>
 
@@ -137,14 +138,14 @@ export default function Contact() {
                   Email
                 </p>
                 <a
-                  href="mailto:hello@janedoe.dev"
+                  href="mailto:hello@ctrlcat.dev"
                   style={{
                     fontSize: '0.9375rem',
                     fontWeight: 500,
                     color: 'var(--foreground)',
                   }}
                 >
-                  hello@janedoe.dev
+                  hello@ctrlcat.dev
                 </a>
               </div>
             </div>
@@ -178,7 +179,7 @@ export default function Contact() {
                     marginBottom: '0.25rem',
                   }}
                 >
-                  Location
+                  {language === 'en' ? 'Location' : 'Локация'}
                 </p>
                 <p
                   style={{
@@ -187,13 +188,13 @@ export default function Contact() {
                     color: 'var(--foreground)',
                   }}
                 >
-                  San Francisco, CA
+                  {language === 'en' ? 'Remote / Worldwide' : 'Удалённо / Весь мир'}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Decorative element */}
+          {/* Quote */}
           <div
             style={{
               marginTop: '2rem',
@@ -211,7 +212,9 @@ export default function Contact() {
                 fontStyle: 'italic',
               }}
             >
-              &quot;The best way to predict the future is to create it.&quot;
+              {language === 'en' 
+                ? '"The best way to predict the future is to create it."'
+                : '"Лучший способ предсказать будущее — создать его."'}
             </p>
             <p
               style={{
@@ -258,7 +261,7 @@ export default function Contact() {
                   marginBottom: '0.5rem',
                 }}
               >
-                Message Sent!
+                {t('contact.success')}
               </h3>
               <p
                 style={{
@@ -266,7 +269,9 @@ export default function Contact() {
                   color: 'var(--muted-foreground)',
                 }}
               >
-                Thanks for reaching out. I&apos;ll get back to you soon.
+                {language === 'en' 
+                  ? 'Thanks for reaching out. I\'ll get back to you soon.'
+                  : 'Спасибо за обращение. Скоро свяжусь с вами.'}
               </p>
               <button
                 type="button"
@@ -283,7 +288,7 @@ export default function Contact() {
                   cursor: 'pointer',
                 }}
               >
-                Send Another
+                {language === 'en' ? 'Send Another' : 'Отправить ещё'}
               </button>
             </div>
           ) : (
@@ -304,7 +309,7 @@ export default function Contact() {
                     marginBottom: '0.5rem',
                   }}
                 >
-                  Name
+                  {t('contact.name')}
                 </label>
                 <input
                   type="text"
@@ -313,7 +318,7 @@ export default function Contact() {
                   value={formState.name}
                   onChange={handleChange}
                   required
-                  placeholder="Your name"
+                  placeholder={language === 'en' ? 'Your name' : 'Ваше имя'}
                   style={inputStyles}
                   onFocus={(e) => {
                     e.target.style.borderColor = 'var(--accent)'
@@ -336,7 +341,7 @@ export default function Contact() {
                     marginBottom: '0.5rem',
                   }}
                 >
-                  Email
+                  {t('contact.email')}
                 </label>
                 <input
                   type="email"
@@ -368,7 +373,7 @@ export default function Contact() {
                     marginBottom: '0.5rem',
                   }}
                 >
-                  Message
+                  {t('contact.message')}
                 </label>
                 <textarea
                   id="message"
@@ -377,7 +382,9 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={5}
-                  placeholder="Tell me about your project..."
+                  placeholder={language === 'en' 
+                    ? 'Tell me about your project...' 
+                    : 'Расскажите о вашем проекте...'}
                   style={{
                     ...inputStyles,
                     resize: 'vertical',
@@ -424,11 +431,11 @@ export default function Contact() {
                 {isSubmitting ? (
                   <>
                     <Loader2 size={18} style={{ animation: 'spin 1s linear infinite' }} />
-                    Sending...
+                    {t('contact.sending')}
                   </>
                 ) : (
                   <>
-                    Send Message
+                    {t('contact.send')}
                     <Send size={18} />
                   </>
                 )}

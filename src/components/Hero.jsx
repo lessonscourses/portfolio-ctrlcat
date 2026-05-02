@@ -1,6 +1,9 @@
 import { ArrowDown, Sparkles } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Hero() {
+  const { t, language } = useLanguage()
+
   return (
     <section
       style={{
@@ -52,21 +55,30 @@ export default function Hero() {
           }}
         >
           <Sparkles size={16} style={{ color: 'var(--accent)' }} />
-          <span>Available for new projects</span>
+          <span>{language === 'en' ? 'Available for new projects' : 'Открыт для новых проектов'}</span>
         </div>
 
-        {/* Heading */}
+        {/* Greeting */}
+        <p
+          style={{
+            fontSize: '1.25rem',
+            color: 'var(--muted-foreground)',
+            marginBottom: '0.75rem',
+          }}
+        >
+          {t('hero.greeting')}
+        </p>
+
+        {/* Name & Title */}
         <h1
           style={{
             fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
             fontWeight: 700,
             letterSpacing: '-0.03em',
             lineHeight: 1.1,
-            marginBottom: '1.5rem',
+            marginBottom: '1rem',
           }}
         >
-          Building digital
-          <br />
           <span
             style={{
               background: 'linear-gradient(135deg, var(--accent), #8b5cf6)',
@@ -75,23 +87,32 @@ export default function Hero() {
               backgroundClip: 'text',
             }}
           >
-            experiences
-          </span>{' '}
-          that matter
+            {t('hero.name')}
+          </span>
         </h1>
 
-        {/* Subheading */}
+        <h2
+          style={{
+            fontSize: 'clamp(1.25rem, 3vw, 1.75rem)',
+            fontWeight: 600,
+            color: 'var(--foreground)',
+            marginBottom: '1.5rem',
+          }}
+        >
+          {t('hero.role')}
+        </h2>
+
+        {/* Description */}
         <p
           style={{
-            fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+            fontSize: 'clamp(1rem, 2vw, 1.125rem)',
             color: 'var(--muted-foreground)',
             maxWidth: '600px',
             margin: '0 auto 2.5rem',
             lineHeight: 1.7,
           }}
         >
-          I&apos;m a full-stack developer passionate about crafting clean, 
-          user-focused web applications with React, Node.js, and modern APIs.
+          {t('hero.description')}
         </p>
 
         {/* CTA Buttons */}
@@ -114,6 +135,7 @@ export default function Hero() {
               color: 'var(--background)',
               borderRadius: '10px',
               transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              textDecoration: 'none',
             }}
             onMouseEnter={(e) => {
               e.target.style.transform = 'translateY(-2px)'
@@ -124,7 +146,7 @@ export default function Hero() {
               e.target.style.boxShadow = 'none'
             }}
           >
-            View My Work
+            {t('hero.cta')}
           </a>
           <a
             href="#contact"
@@ -137,6 +159,7 @@ export default function Hero() {
               border: '1px solid var(--border)',
               borderRadius: '10px',
               transition: 'border-color 0.2s ease, background-color 0.2s ease',
+              textDecoration: 'none',
             }}
             onMouseEnter={(e) => {
               e.target.style.borderColor = 'var(--muted-foreground)'
@@ -147,7 +170,7 @@ export default function Hero() {
               e.target.style.backgroundColor = 'transparent'
             }}
           >
-            Get in Touch
+            {t('hero.contact')}
           </a>
         </div>
       </div>
@@ -168,7 +191,7 @@ export default function Hero() {
         }}
       >
         <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-          Scroll
+          {language === 'en' ? 'Scroll' : 'Листайте'}
         </span>
         <ArrowDown size={16} />
       </div>
