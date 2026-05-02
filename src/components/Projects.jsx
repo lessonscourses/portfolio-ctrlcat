@@ -1,52 +1,36 @@
-import { ExternalLink, FolderGit2, Folder } from 'lucide-react'
-
-const projects = [
-  {
-    title: 'TaskFlow Pro',
-    description: 'A collaborative project management app with real-time updates, drag-and-drop kanban boards, and team analytics.',
-    tags: ['React', 'Node.js', 'Socket.io', 'PostgreSQL'],
-    github: 'https://github.com',
-    live: 'https://example.com',
-    featured: true,
-  },
-  {
-    title: 'EcoTrack',
-    description: 'Carbon footprint tracker that helps users monitor and reduce their environmental impact through daily logging.',
-    tags: ['Next.js', 'Prisma', 'Chart.js', 'Tailwind'],
-    github: 'https://github.com',
-    live: 'https://example.com',
-    featured: true,
-  },
-  {
-    title: 'DevConnect API',
-    description: 'RESTful API service for developer portfolios with authentication, rate limiting, and webhook integrations.',
-    tags: ['Express', 'MongoDB', 'Redis', 'JWT'],
-    github: 'https://github.com',
-    featured: true,
-  },
-  {
-    title: 'Rhythm',
-    description: 'Music streaming interface prototype with playlist management and audio visualization features.',
-    tags: ['React', 'Web Audio API', 'Framer Motion'],
-    github: 'https://github.com',
-    live: 'https://example.com',
-  },
-  {
-    title: 'CodeSnippets',
-    description: 'Browser extension for saving and organizing code snippets with syntax highlighting and tags.',
-    tags: ['TypeScript', 'Chrome APIs', 'IndexedDB'],
-    github: 'https://github.com',
-  },
-  {
-    title: 'WeatherNow',
-    description: 'Minimalist weather app with location-based forecasts and customizable widgets.',
-    tags: ['React Native', 'OpenWeather API', 'Expo'],
-    github: 'https://github.com',
-    live: 'https://example.com',
-  },
-]
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { ExternalLink, ArrowRight, Folder } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
+import { getFeaturedProjects } from '../data/projects'
 
 export default function Projects() {
+  const { language, t } = useLanguage()
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function loadProjects() {
+      try {
+        const data = await getFeaturedProjects()
+        setProjects(data)
+      } catch (error) {
+        console.error('Failed to load projects:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadProjects()
+  }, [])
+
+  if (loading) {
+    return (
+      <section id="projects" style={{ padding: '6rem 1.5rem', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', color: 'var(--muted-foreground)' }}>Loading...</div>
+      </section>
+    )
+  }
+
   return (
     <section
       id="projects"
@@ -68,7 +52,7 @@ export default function Projects() {
           }}
           className="font-mono"
         >
-          Selected Work
+          {language === 'en' ? 'Selected Work' : 'Избранные работы'}
         </span>
         <h2
           style={{
@@ -78,8 +62,17 @@ export default function Projects() {
             marginTop: '0.5rem',
           }}
         >
-          Projects I&apos;ve Built
+          {t('projects.title')}
         </h2>
+        <p
+          style={{
+            color: 'var(--muted-foreground)',
+            fontSize: '1.125rem',
+            marginTop: '0.5rem',
+          }}
+        >
+          {t('projects.subtitle')}
+        </p>
       </div>
 
       {/* Projects Grid */}
@@ -90,121 +83,163 @@ export default function Projects() {
           gap: '1.5rem',
         }}
       >
-        {projects.map((project, index) => (
-          <article
-            key={index}
-            style={{
-              backgroundColor: 'var(--card)',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--radius)',
-              padding: '1.75rem',
-              display: 'flex',
-              flexDirection: 'column',
-              transition: 'border-color 0.3s ease, transform 0.3s ease',
-              cursor: 'default',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'var(--muted-foreground)'
-              e.currentTarget.style.transform = 'translateY(-4px)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'var(--border)'
-              e.currentTarget.style.transform = 'translateY(0)'
-            }}
-          >
-            {/* Card Header */}
-            <div
+        {projects.map((project) => {
+          const content = project.content[language]
+          
+          return (
+            <article
+              key={project.id}
               style={{
+                backgroundColor: 'var(--card)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius)',
+                overflow: 'hidden',
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginBottom: '1.25rem',
+                flexDirection: 'column',
+                transition: 'border-color 0.3s ease, transform 0.3s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--muted-foreground)'
+                e.currentTarget.style.transform = 'translateY(-4px)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border)'
+                e.currentTarget.style.transform = 'translateY(0)'
               }}
             >
-              <Folder
-                size={40}
-                style={{ color: 'var(--accent)', strokeWidth: 1 }}
-              />
-              <div style={{ display: 'flex', gap: '0.75rem' }}>
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: 'var(--muted-foreground)', transition: 'color 0.2s ease' }}
-                    onMouseEnter={(e) => (e.target.style.color = 'var(--foreground)')}
-                    onMouseLeave={(e) => (e.target.style.color = 'var(--muted-foreground)')}
-                    aria-label="View source code on GitHub"
-                  >
-                    <FolderGit2 size={20} />
-                  </a>
-                )}
-                {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: 'var(--muted-foreground)', transition: 'color 0.2s ease' }}
-                    onMouseEnter={(e) => (e.target.style.color = 'var(--foreground)')}
-                    onMouseLeave={(e) => (e.target.style.color = 'var(--muted-foreground)')}
-                    aria-label="View live project"
-                  >
-                    <ExternalLink size={20} />
-                  </a>
-                )}
-              </div>
-            </div>
-
-            {/* Card Content */}
-            <h3
-              style={{
-                fontSize: '1.25rem',
-                fontWeight: 600,
-                marginBottom: '0.75rem',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              {project.title}
-            </h3>
-            <p
-              style={{
-                fontSize: '0.9375rem',
-                color: 'var(--muted-foreground)',
-                lineHeight: 1.6,
-                flex: 1,
-              }}
-            >
-              {project.description}
-            </p>
-
-            {/* Tags */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '0.5rem',
-                marginTop: '1.5rem',
-              }}
-            >
-              {project.tags.map((tag, tagIndex) => (
-                <span
-                  key={tagIndex}
+              {/* Project Image */}
+              <div
+                style={{
+                  width: '100%',
+                  height: '180px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}
+              >
+                <img
+                  src={project.images[0]}
+                  alt={content.title}
                   style={{
-                    fontSize: '0.75rem',
-                    fontWeight: 500,
-                    color: 'var(--muted-foreground)',
-                    padding: '0.25rem 0.625rem',
-                    backgroundColor: 'var(--muted)',
-                    borderRadius: '6px',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
                   }}
-                  className="font-mono"
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.5) 100%)',
+                  }}
+                />
+              </div>
+
+              {/* Card Content */}
+              <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                {/* Header */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    marginBottom: '0.75rem',
+                  }}
                 >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </article>
-        ))}
+                  <h3
+                    style={{
+                      fontSize: '1.25rem',
+                      fontWeight: 600,
+                      letterSpacing: '-0.01em',
+                    }}
+                  >
+                    {content.title}
+                  </h3>
+                  {project.url && (
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ 
+                        color: 'var(--muted-foreground)', 
+                        transition: 'color 0.2s ease',
+                        flexShrink: 0,
+                        marginLeft: '8px',
+                      }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted-foreground)')}
+                      aria-label={`Visit ${content.title} website`}
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                  )}
+                </div>
+
+                {/* Description */}
+                <p
+                  style={{
+                    fontSize: '0.9375rem',
+                    color: 'var(--muted-foreground)',
+                    lineHeight: 1.6,
+                    flex: 1,
+                  }}
+                >
+                  {content.shortDescription}
+                </p>
+
+                {/* Tags */}
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem',
+                    marginTop: '1rem',
+                  }}
+                >
+                  {project.stack.slice(0, 4).map((tech) => (
+                    <span
+                      key={tech}
+                      style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 500,
+                        color: 'var(--muted-foreground)',
+                        padding: '0.25rem 0.625rem',
+                        backgroundColor: 'var(--muted)',
+                        borderRadius: '6px',
+                      }}
+                      className="font-mono"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* View Details Link */}
+                <Link
+                  to={`/project/${project.slug}`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    marginTop: '1.25rem',
+                    color: 'var(--accent)',
+                    fontSize: '0.9rem',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    transition: 'gap 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.gap = '10px')}
+                  onMouseLeave={(e) => (e.currentTarget.style.gap = '6px')}
+                >
+                  {t('projects.viewProject')}
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </article>
+          )
+        })}
       </div>
     </section>
   )

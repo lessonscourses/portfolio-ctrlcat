@@ -1,35 +1,46 @@
-import { Code2, Palette, Zap, Users } from 'lucide-react'
+import { Code2, Database, Zap, Globe } from 'lucide-react'
+import { useLanguage } from '../i18n/LanguageContext'
 
 const skills = [
   'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js', 'Express',
-  'PostgreSQL', 'MongoDB', 'Redis', 'GraphQL', 'REST APIs', 'Git',
-  'Tailwind CSS', 'Figma', 'Docker', 'AWS',
-]
-
-const highlights = [
-  {
-    icon: Code2,
-    title: 'Clean Code',
-    description: 'Writing maintainable, well-documented code that scales.',
-  },
-  {
-    icon: Zap,
-    title: 'Performance',
-    description: 'Optimizing for speed and smooth user experiences.',
-  },
-  {
-    icon: Palette,
-    title: 'Design Sense',
-    description: 'Bridging the gap between design and development.',
-  },
-  {
-    icon: Users,
-    title: 'Collaboration',
-    description: 'Working effectively with teams and stakeholders.',
-  },
+  'PostgreSQL', 'MongoDB', 'Redis', 'REST APIs', 'Git', 'Docker',
+  'Tailwind CSS', 'Python', 'TensorFlow', 'AWS',
 ]
 
 export default function About() {
+  const { t, language } = useLanguage()
+
+  const highlights = [
+    {
+      icon: Code2,
+      title: language === 'en' ? 'Clean Code' : 'Чистый код',
+      description: language === 'en' 
+        ? 'Writing maintainable, well-documented code that scales.' 
+        : 'Поддерживаемый, документированный код, который масштабируется.',
+    },
+    {
+      icon: Database,
+      title: language === 'en' ? 'Backend & APIs' : 'Бэкенд и API',
+      description: language === 'en' 
+        ? 'Building robust APIs and database architectures.' 
+        : 'Создание надёжных API и архитектуры баз данных.',
+    },
+    {
+      icon: Zap,
+      title: language === 'en' ? 'Performance' : 'Производительность',
+      description: language === 'en' 
+        ? 'Optimizing for speed and smooth user experiences.' 
+        : 'Оптимизация скорости и плавности UX.',
+    },
+    {
+      icon: Globe,
+      title: language === 'en' ? 'Full-Stack' : 'Full-Stack',
+      description: language === 'en' 
+        ? 'End-to-end development from idea to deployment.' 
+        : 'Разработка от идеи до деплоя.',
+    },
+  ]
+
   return (
     <section
       id="about"
@@ -58,7 +69,7 @@ export default function About() {
             }}
             className="font-mono"
           >
-            About Me
+            {language === 'en' ? 'About Me' : 'Обо мне'}
           </span>
           <h2
             style={{
@@ -68,7 +79,7 @@ export default function About() {
               marginTop: '0.5rem',
             }}
           >
-            A Bit About Myself
+            {t('about.title')}
           </h2>
         </div>
 
@@ -90,22 +101,47 @@ export default function About() {
                 marginBottom: '1.5rem',
               }}
             >
-              Hi there! I&apos;m a full-stack developer with 4+ years of experience 
-              building web applications. I love turning complex problems into 
-              simple, beautiful solutions.
+              {t('about.bio')}
             </p>
-            <p
-              style={{
-                fontSize: '1.0625rem',
-                color: 'var(--muted-foreground)',
-                lineHeight: 1.8,
-                marginBottom: '2rem',
-              }}
-            >
-              When I&apos;m not coding, you&apos;ll find me exploring new coffee shops, 
-              contributing to open-source projects, or tinkering with side projects 
-              that probably involve too many API integrations.
-            </p>
+
+            {/* Experience List */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3
+                style={{
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  marginBottom: '1rem',
+                }}
+              >
+                {t('about.experience')}:
+              </h3>
+              <ul style={{ listStyle: 'none', padding: 0 }}>
+                {t('about.experienceItems').map((item, index) => (
+                  <li
+                    key={index}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                      padding: '0.5rem 0',
+                      color: 'var(--muted-foreground)',
+                      fontSize: '0.95rem',
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: '6px',
+                        height: '6px',
+                        backgroundColor: 'var(--accent)',
+                        borderRadius: '50%',
+                        flexShrink: 0,
+                      }}
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             {/* Highlights Grid */}
             <div
@@ -161,7 +197,7 @@ export default function About() {
                 marginBottom: '1.25rem',
               }}
             >
-              Tech Stack
+              {t('about.skills')}
             </h3>
             <div
               style={{
@@ -197,7 +233,7 @@ export default function About() {
               ))}
             </div>
 
-            {/* Experience Note */}
+            {/* CTA Note */}
             <div
               style={{
                 marginTop: '2rem',
@@ -214,8 +250,9 @@ export default function About() {
                   lineHeight: 1.6,
                 }}
               >
-                Currently freelancing and open to full-time opportunities. 
-                Let&apos;s build something great together!
+                {language === 'en' 
+                  ? 'Open to interesting projects and collaborations. Let\'s build something great together!'
+                  : 'Открыт для интересных проектов и сотрудничества. Давайте создадим что-то классное вместе!'}
               </p>
             </div>
           </div>

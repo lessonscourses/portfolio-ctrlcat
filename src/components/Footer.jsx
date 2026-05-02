@@ -1,12 +1,14 @@
-
+import { useLanguage } from '../i18n/LanguageContext'
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com' },
   { name: 'LinkedIn', href: 'https://linkedin.com' },
-  { name: 'Twitter', href: 'https://twitter.com' },
+  { name: 'Telegram', href: 'https://t.me' },
 ]
 
 export default function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer
       style={{
@@ -51,6 +53,7 @@ export default function Footer() {
                 borderRadius: '10px',
                 color: 'var(--muted-foreground)',
                 transition: 'all 0.2s ease',
+                textDecoration: 'none',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = 'var(--foreground)'
@@ -84,7 +87,7 @@ export default function Footer() {
               color: 'var(--muted-foreground)',
             }}
           >
-            Designed & Built with care
+            {t('footer.builtWith')}
           </p>
           <p
             style={{
@@ -92,7 +95,7 @@ export default function Footer() {
               color: 'var(--muted-foreground)',
             }}
           >
-            {new Date().getFullYear()} Jane Doe. All rights reserved.
+            {new Date().getFullYear()} Ctrl+Cat. {t('footer.rights')}
           </p>
         </div>
       </div>
