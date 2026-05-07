@@ -216,22 +216,35 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* View Details Link */}
+                {/* View Details Button */}
                 <Link
                   to={`/project/${project.slug}`}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '6px',
-                    marginTop: '1.25rem',
-                    color: 'var(--accent)',
-                    fontSize: '0.9rem',
-                    fontWeight: 500,
+                    justifyContent: 'center',
+                    gap: '8px',
+                    marginTop: '1.5rem',
+                    padding: '0.75rem 1.25rem',
+                    backgroundColor: 'var(--accent)',
+                    color: 'var(--background)',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
                     textDecoration: 'none',
-                    transition: 'gap 0.2s ease',
+                    borderRadius: '8px',
+                    transition: 'all 0.2s ease',
+                    width: '100%',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.gap = '10px')}
-                  onMouseLeave={(e) => (e.currentTarget.style.gap = '6px')}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--accent-hover, #3b82f6)'
+                    e.currentTarget.style.transform = 'translateY(-2px)'
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--accent)'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'none'
+                  }}
                 >
                   {t('projects.viewProject')}
                   <ArrowRight size={16} />
