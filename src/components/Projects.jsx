@@ -222,32 +222,29 @@ export default function Projects() {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    marginTop: '1.5rem',
-                    padding: '0.75rem 1.25rem',
+                    gap: '6px',
+                    marginTop: '1.25rem',
+                    padding: '0.5rem 0.875rem',
                     backgroundColor: 'var(--accent)',
                     color: 'var(--background)',
-                    fontSize: '0.875rem',
-                    fontWeight: 600,
+                    fontSize: '0.8125rem',
+                    fontWeight: 500,
                     textDecoration: 'none',
-                    borderRadius: '8px',
+                    borderRadius: '6px',
                     transition: 'all 0.2s ease',
-                    width: '100%',
+                    alignSelf: 'flex-start',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--accent-hover, #3b82f6)'
-                    e.currentTarget.style.transform = 'translateY(-2px)'
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.3)'
+                    e.currentTarget.style.opacity = '0.85'
+                    e.currentTarget.style.transform = 'translateY(-1px)'
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'var(--accent)'
+                    e.currentTarget.style.opacity = '1'
                     e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = 'none'
                   }}
                 >
                   {t('projects.viewProject')}
-                  <ArrowRight size={16} />
+                  <ArrowRight size={14} />
                 </Link>
               </div>
             </article>
