@@ -9,8 +9,8 @@ export const translations = {
     hero: {
       greeting: 'Hi, I am',
       name: 'Ctrl+Cat',
-      role: 'Full-Stack Developer',
-      description: 'I build complete web products from idea to deployment. React applications, API integrations, and commercial projects that solve real business problems.',
+      role: 'Vue.js / Nuxt 3 Developer',
+      description: 'I build modern web applications with Vue.js and Nuxt 3. AI integrations, chatbots, REST APIs, and commercial projects that solve real business problems.',
       cta: 'View Projects',
       contact: 'Get in Touch',
     },
@@ -29,15 +29,15 @@ export const translations = {
     about: {
       title: 'About Me',
       subtitle: 'Full-stack developer with a passion for building products',
-      bio: 'I specialize in creating complete web solutions — from frontend interfaces to backend APIs and database architecture. My focus is on delivering commercial products that work reliably and scale with your business.',
+      bio: 'I specialize in creating modern web applications with Vue.js and Nuxt 3. AI integrations, chatbots, REST APIs, and database architecture. My focus is on delivering commercial products that work reliably and scale with your business.',
       skills: 'Core Skills',
       experience: 'What I Do',
       experienceItems: [
-        'React & Next.js Applications',
-        'REST API Development',
-        'Database Design & Integration',
-        'E-commerce Solutions',
-        'Admin Dashboards & CRM Systems',
+        'Vue.js / Nuxt 3 Web Applications',
+        'AI Integrations & AI Assistants',
+        'REST API & App Architecture',
+        'React / Next.js Development',
+        'Android Development',
       ],
     },
     contact: {
@@ -53,7 +53,7 @@ export const translations = {
     },
     footer: {
       rights: 'All rights reserved.',
-      builtWith: 'Built with React',
+      builtWith: 'Built with Vue.js',
     },
     projectDetails: {
       overview: 'Project Overview',
@@ -71,8 +71,8 @@ export const translations = {
     hero: {
       greeting: 'Привет, я',
       name: 'Ctrl+Cat',
-      role: 'Full-Stack Разработчик',
-      description: 'Создаю веб-продукты под ключ — от идеи до деплоя. React приложения, интеграции с API и коммерческие проекты, которые решают реальные бизнес-задачи.',
+      role: 'Vue.js / Nuxt 3 Разработчик',
+      description: 'Создаю современные веб-приложения на Vue.js и Nuxt 3. AI-интеграции, чат-боты, REST API и коммерческие проекты, которые решают реальные бизнес-задачи.',
       cta: 'Смотреть проекты',
       contact: 'Связаться',
     },
@@ -91,15 +91,15 @@ export const translations = {
     about: {
       title: 'Обо мне',
       subtitle: 'Full-stack разработчик с фокусом на создание продуктов',
-      bio: 'Специализируюсь на создании комплексных веб-решений — от фронтенд интерфейсов до бэкенд API и архитектуры баз данных. Мой фокус — коммерческие продукты, которые работают надёжно и масштабируются вместе с вашим бизнесом.',
+      bio: 'Специализируюсь на создании современных веб-приложений на Vue.js и Nuxt 3. AI-интеграции, чат-боты, REST API и архитектура баз данных. Мой фокус — коммерческие продукты, которые работают надёжно и масштабируются вместе с вашим бизнесом.',
       skills: 'Ключевые навыки',
       experience: 'Чем занимаюсь',
       experienceItems: [
-        'React и Next.js приложения',
-        'Разработка REST API',
-        'Проектирование баз данных',
-        'E-commerce решения',
-        'Админ-панели и CRM системы',
+        'Vue.js / Nuxt 3 веб-приложения',
+        'AI-интеграции и AI-ассистенты',
+        'REST API и архитектура приложений',
+        'React / Next.js разработка',
+        'Android-разработка',
       ],
     },
     contact: {
@@ -115,7 +115,7 @@ export const translations = {
     },
     footer: {
       rights: 'Все права защищены.',
-      builtWith: 'Сделано на React',
+      builtWith: 'Сделано на Vue.js',
     },
     projectDetails: {
       overview: 'Обзор проекта',
