@@ -2,9 +2,10 @@ import { Code2, Database, Zap, Globe } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
 const skills = [
-  'JavaScript', 'TypeScript', 'React', 'Next.js', 'Node.js', 'Express',
-  'PostgreSQL', 'MongoDB', 'Redis', 'REST APIs', 'Git', 'Docker',
-  'Tailwind CSS', 'Python', 'TensorFlow', 'AWS',
+  'Vue.js', 'Nuxt 3', 'JavaScript', 'TypeScript', 'React', 'Next.js',
+  'OpenAI API', 'Gemini API', 'AI Chatbots', 'Node.js', 'Express',
+  'PostgreSQL', 'MongoDB', 'REST APIs', 'Git', 'Docker',
+  'Tailwind CSS', 'Android', 'Kotlin',
 ]
 
 export default function About() {

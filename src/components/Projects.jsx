@@ -216,7 +216,7 @@ export default function Projects() {
                   ))}
                 </div>
 
-                {/* View Details Link */}
+                {/* View Details Button */}
                 <Link
                   to={`/project/${project.slug}`}
                   style={{
@@ -224,17 +224,27 @@ export default function Projects() {
                     alignItems: 'center',
                     gap: '6px',
                     marginTop: '1.25rem',
-                    color: 'var(--accent)',
-                    fontSize: '0.9rem',
+                    padding: '0.5rem 0.875rem',
+                    backgroundColor: 'var(--accent)',
+                    color: 'var(--background)',
+                    fontSize: '0.8125rem',
                     fontWeight: 500,
                     textDecoration: 'none',
-                    transition: 'gap 0.2s ease',
+                    borderRadius: '6px',
+                    transition: 'all 0.2s ease',
+                    alignSelf: 'flex-start',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.gap = '10px')}
-                  onMouseLeave={(e) => (e.currentTarget.style.gap = '6px')}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.85'
+                    e.currentTarget.style.transform = 'translateY(-1px)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1'
+                    e.currentTarget.style.transform = 'translateY(0)'
+                  }}
                 >
                   {t('projects.viewProject')}
-                  <ArrowRight size={16} />
+                  <ArrowRight size={14} />
                 </Link>
               </div>
             </article>
