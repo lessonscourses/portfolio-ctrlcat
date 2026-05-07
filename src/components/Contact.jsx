@@ -1,6 +1,9 @@
 import { useState } from 'react'
-import { Send, Mail, MapPin, Loader2 } from 'lucide-react'
+import { Send, Mail, MapPin, Loader2, Camera } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
+
+// Set to true to show the contact form, false to hide it
+const SHOW_CONTACT_FORM = false
 
 export default function Contact() {
   const { t, language } = useLanguage()
@@ -138,14 +141,60 @@ export default function Contact() {
                   Email
                 </p>
                 <a
-                  href="mailto:hello@ctrlcat.dev"
+                  href="mailto:ctrlcatmy@proton.me"
                   style={{
                     fontSize: '0.9375rem',
                     fontWeight: 500,
                     color: 'var(--foreground)',
                   }}
                 >
-                  hello@ctrlcat.dev
+                  ctrlcatmy@proton.me
+                </a>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+              }}
+            >
+              <div
+                style={{
+                  width: '48px',
+                  height: '48px',
+                  backgroundColor: 'var(--card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Camera size={20} style={{ color: 'var(--accent)' }} />
+              </div>
+              <div>
+                <p
+                  style={{
+                    fontSize: '0.8125rem',
+                    color: 'var(--muted-foreground)',
+                    marginBottom: '0.25rem',
+                  }}
+                >
+                  Instagram
+                </p>
+                <a
+                  href="https://instagram.com/ctrlcat.my"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: '0.9375rem',
+                    fontWeight: 500,
+                    color: 'var(--foreground)',
+                  }}
+                >
+                  @ctrlcat.my
                 </a>
               </div>
             </div>
@@ -228,7 +277,8 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Contact Form */}
+        {/* Contact Form - Hidden but preserved */}
+        {SHOW_CONTACT_FORM && (
         <form onSubmit={handleSubmit}>
           {submitted ? (
             <div
@@ -450,6 +500,7 @@ export default function Contact() {
             }
           `}</style>
         </form>
+        )}
       </div>
     </section>
   )

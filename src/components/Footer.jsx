@@ -1,5 +1,8 @@
 import { useLanguage } from '../i18n/LanguageContext'
 
+// Set to true to show social links, false to hide them
+const SHOW_SOCIAL_LINKS = false
+
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com' },
   { name: 'LinkedIn', href: 'https://linkedin.com' },
@@ -27,7 +30,8 @@ export default function Footer() {
           gap: '1.5rem',
         }}
       >
-        {/* Social Links */}
+        {/* Social Links - Hidden but preserved */}
+        {SHOW_SOCIAL_LINKS && (
         <div
           style={{
             display: 'flex',
@@ -70,6 +74,7 @@ export default function Footer() {
             </a>
           ))}
         </div>
+        )}
 
         {/* Copyright */}
         <div
