@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Send, Mail, MapPin, Loader2, Instagram } from 'lucide-react'
+import { Send, Mail, MapPin, Loader2, Camera } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 
 // Set to true to show the contact form, false to hide it
@@ -172,7 +172,7 @@ export default function Contact() {
                   justifyContent: 'center',
                 }}
               >
-                <Instagram size={20} style={{ color: 'var(--accent)' }} />
+                <Camera size={20} style={{ color: 'var(--accent)' }} />
               </div>
               <div>
                 <p
